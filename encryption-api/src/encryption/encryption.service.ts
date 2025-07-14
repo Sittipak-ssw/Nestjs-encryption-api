@@ -25,10 +25,12 @@ export class EncryptionService {
   }
 
   encryptKeyWithPrivateKey(key: string): string {
+    if (!PRIVATE_KEY) throw new Error('PRIVATE_KEY is not set');
     return crypto.privateEncrypt(PRIVATE_KEY, Buffer.from(key, 'base64')).toString('base64');
   }
 
   decryptKeyWithPublicKey(data: string): string {
+    if (!PUBLIC_KEY) throw new Error('PUBLIC_KEY is not set');
     return crypto.publicDecrypt(PUBLIC_KEY, Buffer.from(data, 'base64')).toString('base64');
   }
 }
